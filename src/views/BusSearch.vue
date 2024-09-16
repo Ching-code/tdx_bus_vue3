@@ -359,10 +359,17 @@ const listClickPopup = (stop) => {
 let markers = {}
 const createMarkers = (stops) => {
   clearMarkers()
+  const defaultIcon = new L.icon({
+    iconUrl: new URL('/src/assets/marker-icon.png', import.meta.url).href,
+    iconSize: [18, 32],
+    iconAnchor: [9, 32],
+    popupAnchor: [0, -32]
+  })
+
   stops.forEach((stop) => {
     const { PositionLat, PositionLon } = stop.routeStop.StopPosition
 
-    const marker = L.marker([PositionLat, PositionLon]).addTo(map)
+    const marker = L.marker([PositionLat, PositionLon], { icon: defaultIcon }).addTo(map)
     const popupContent = `<p>${stop.routeStop.StopName.Zh_tw}</p>`
     marker.bindPopup(popupContent)
 
